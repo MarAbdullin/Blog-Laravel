@@ -56,6 +56,7 @@ class PostController extends Controller
         return view('admin.post.show', compact('post'));
     }
 
+
     //Разрешить публикацию поста блога
     public function enable(Post $post)
     {
@@ -71,7 +72,6 @@ class PostController extends Controller
 
         return back()->with('success', 'Пост блога снят с публикации');
     }
-
     
 
     //Показывает форму редактирования поста

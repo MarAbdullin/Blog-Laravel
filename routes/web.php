@@ -84,12 +84,13 @@ Route::group( [
 
     // доп.маршрут для показа постов категории
     Route::get('post/category/{category}', [PostController::class, 'category'])->name('post.category');
-
+    
     // доп.маршрут, чтобы разрешить публикацию поста
     Route::get('post/enable/{post}', [PostController::class, 'enable'])->name('post.enable');
-
+    
     // доп.маршрут, чтобы запретить публикацию поста
     Route::get('post/disable/{post}', [PostController::class, 'disable'])->name('post.disable');
+  
 
 });
 

@@ -51,10 +51,10 @@
                                     <i class="far fa-toggle-on"></i>
                                 </a>
                             @else
-                                <a href="{{ route('admin.post.enable', ['post' => $post->id]) }}"
+                                <!-- <a href="{{ route('admin.post.enable', ['post' => $post->id]) }}"
                                    title="Разрешить публикацию">
                                     <i class="far fa-toggle-off"></i>
-                                </a>
+                                </a> -->
                             @endif
                         @endperm
                     </td>
