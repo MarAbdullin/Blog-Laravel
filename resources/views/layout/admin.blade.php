@@ -32,7 +32,7 @@
                     <a class="nav-link" href="#">Комментарии</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Категории</a>
+                    <a class="nav-link" href="{{route('admin.category.index')}}">Категории</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Теги</a>

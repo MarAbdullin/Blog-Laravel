@@ -8,6 +8,7 @@ use App\Http\Controllers\Blog\Auth\ForgotPasswordController;
 use App\Http\Controllers\Blog\Auth\ResetPasswordController;
 use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\Blog\Admin\PostController;
+use App\Http\Controllers\Blog\Admin\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +58,7 @@ Route::group([ 'as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'midd
 Route::group([ "as" => 'blog.', 'prefix' =>'/', 'middleware' => ['auth'] ], function(){
     
     // главная страница
-    Route::get('', [BlogController::class, 'index'])->name('home');
+    Route::get('', [BlogController::class, 'index'])->name('index');
 
     //страница с постами категории
     Route::get('category/{category:slug}', [BlogController::class, 'category'])->name('category');
@@ -91,7 +92,8 @@ Route::group( [
     // доп.маршрут, чтобы запретить публикацию поста
     Route::put('post/disable/{post}', [PostController::class, 'disable'])->name('post.disable');
   
-
+    //CRUD-операции над категориями блога
+    Route::resource('category', CategoryController::class, ['except' => ['show']]);
 });
 
 

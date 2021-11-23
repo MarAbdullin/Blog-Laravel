@@ -27,7 +27,7 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['layout.part.categories', 'admin.post.part.categories'], function($view) {
+        View::composer(['layout.part.categories', 'admin.post.part.categories', 'admin.part.all-ctgs'], function($view) {
             static $items = null;
             if (is_null($items)) {
                 $items = Category::all();
@@ -39,7 +39,7 @@ class ComposerServiceProvider extends ServiceProvider
             $view->with(['items' => Tag::popular()]);
         });
 
-        View::composer('admin.post.part.all-tags', function($view){
+        View::composer('admin.part.all-tags', function($view){
             $view->with(['items' => Tag::all()]);
         });
     }
