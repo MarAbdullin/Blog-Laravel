@@ -46,15 +46,21 @@
                     <td>
                         @perm('publish-post')
                             @if ($post->isVisible())
-                                <a href="{{ route('admin.post.disable', ['post' => $post->id]) }}"
-                                   title="Запретить публикацию">
-                                    <i class="far fa-toggle-on"></i>
-                                </a>
+                                <form action="{{ route('admin.post.disable', ['post' => $post->id]) }}" method="post">
+                                @method('PUT')
+                                @csrf
+                                    <a href="" title="Запретить публикацию">
+                                        <button type="submit" class="btn btn-primary btn-sm">On</button>
+                                    </a>
+                                </form>
                             @else
-                                <!-- <a href="{{ route('admin.post.enable', ['post' => $post->id]) }}"
-                                   title="Разрешить публикацию">
-                                    <i class="far fa-toggle-off"></i>
-                                </a> -->
+                                <form action="{{ route('admin.post.enable', ['post' => $post->id]) }}" method="post">
+                                @method('PUT')
+                                @csrf
+                                    <a href="" title="Разрешить публикацию">
+                                        <button type="submit" class="btn btn-danger btn-sm">Off</button>
+                                    </a>   
+                                </form>
                             @endif
                         @endperm
                     </td>

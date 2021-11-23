@@ -38,5 +38,9 @@ class ComposerServiceProvider extends ServiceProvider
         View::composer('layout.part.popular-tags', function($view) {
             $view->with(['items' => Tag::popular()]);
         });
+
+        View::composer('admin.post.part.all-tags', function($view){
+            $view->with(['items' => Tag::all()]);
+        });
     }
 }
