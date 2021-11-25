@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blog\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -30,7 +31,7 @@ class CategoryController extends Controller
     }
 
     // сохранение новой категории в БД
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         Category::create($request->all());
 
@@ -46,11 +47,11 @@ class CategoryController extends Controller
     //Показывает форму для редактирования категории
     public function edit(Category $category)
     {
-        return view('admin.category.egit', compact('category'));
+        return view('admin.category.edit', compact('category'));
     }
 
     
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category->update($request->all());
 

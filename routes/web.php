@@ -9,6 +9,7 @@ use App\Http\Controllers\Blog\Auth\ResetPasswordController;
 use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\Blog\Admin\PostController;
 use App\Http\Controllers\Blog\Admin\CategoryController;
+use App\Http\Controllers\Blog\Admin\TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,6 +95,10 @@ Route::group( [
   
     //CRUD-операции над категориями блога
     Route::resource('category', CategoryController::class, ['except' => ['show']]);
+
+    //CRUD-операции над тегами блога
+    Route::resource('tag', TagController::class, ['except' => 'show']);
+
 });
 
 
