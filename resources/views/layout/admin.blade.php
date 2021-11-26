@@ -15,7 +15,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger mb-4">
         <!-- Логотип  -->
-        <a class="navbar-brand" href="#">Панель управления</a>
+        <a class="navbar-brand" href="{{ route('admin.index') }}">Панель управления</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-blog" aria-controls="navbar-blog"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -25,21 +25,41 @@
         <div class="collapse navbar-collapse" id="navbar-blog">
             <!-- Этот блок расположен слева -->
             <ul class="navbar-nav mr-auto">
+            @perm('manage-posts')
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.post.index') }}">Посты</a>
+                    <a class="nav-link" href="{{ route('admin.post.index') }}">
+                        Посты
+                    </a>
                 </li>
+            @endperm
+            @perm('manage-comments')
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Комментарии</a>
+                    <a class="nav-link" href="{{ route('admin.comment.index') }}">
+                        Комментарии
+                    </a>
                 </li>
+            @endperm
+            @perm('manage-categories')
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Категории</a>
+                    <a class="nav-link" href="{{ route('admin.category.index') }}">
+                        Категории
+                    </a>
                 </li>
+            @endperm
+            @perm('manage-tags')
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Теги</a>
+                    <a class="nav-link" href="{{ route('admin.tag.index') }}">
+                        Теги
+                    </a>
                 </li>
+            @endperm
+            @perm('manage-users')
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Пользователи</a>
+                    <a class="nav-link" href="{{ route('admin.user.index') }}">
+                        Пользователи
+                    </a>
                 </li>
+            @endperm
                 <li class="nav-item">
                     <a class="nav-link" href="#">Страницы</a>
                 </li>

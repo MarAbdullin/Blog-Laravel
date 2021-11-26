@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -41,7 +42,7 @@ class PostController extends Controller
     }
 
  
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         //
     }
@@ -56,9 +57,11 @@ class PostController extends Controller
         return view('admin.post.show', compact('post'));
     }
 
+
     //Разрешить публикацию поста блога
     public function enable(Post $post)
     {
+        //dd($request, $post);
         $post->enable();
 
         return back()->with('success', 'Пост блога опублекован');
@@ -71,7 +74,6 @@ class PostController extends Controller
 
         return back()->with('success', 'Пост блога снят с публикации');
     }
-
     
 
     //Показывает форму редактирования поста
@@ -85,7 +87,7 @@ class PostController extends Controller
     }
 
     //Обновляет пост блога в базе данных
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
         $post->update($request->all());
         $post->tags()->sync($request->tags);

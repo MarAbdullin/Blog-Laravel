@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CommentRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
@@ -55,6 +57,32 @@ class BlogController extends Controller
         $posts = $tag->posts()->whereNotNull('published_by')->with(['user', 'tags'])->orderBy('created_at', 'desc')->paginate(5);
 
         return view('blog.tag', compact('tag', 'posts'));
+    }
+
+    //Сохраняет новый комментарий в базу данных
+    public function comment(CommentRequest $request)
+    {
+        $request->merge(['user_id' => Auth::user()->id]);
+
+        $message = 'Комментарий добавлен, будет доступен после проверки';
+
+        if (Auth::user()->hasPermAnyWay('publish-comment')){
+            $request->merge(['published_by' => Auth::user()->id]);
+            $message = 'Комментарий добавлен и уже доступен для просмотра';
+        }
+
+        $comment = Comment::create($request->all());
+
+        $post = $comment->post;
+
+        $page = $post->comments()->whereNotNull('published_by')->paginate()->lastPage();
+
+        return redirect()
+        ->route('blog.post', ['post' => $post->slug, 'page' => $page])
+        ->withFragment('comment-list')
+        ->with('success', $message);
+
+
     }
 
 }

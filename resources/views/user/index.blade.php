@@ -7,7 +7,7 @@
 @role('root')
 <ul class="nav nav-pills">
     <li class="nav-item">
-        <a class="nav-link active" href="{{route('admin.post.index')}}">Панель администратора</a> <!-- активная ссылка -->
+        <a class="nav-link active" href="{{ route('admin.index') }}">Панель администратора</a> <!-- активная ссылка -->
     </li>
 </ul>
 @else

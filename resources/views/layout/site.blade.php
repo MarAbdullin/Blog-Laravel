@@ -14,7 +14,7 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <!-- Логотип и кнопка «Гамбургер» -->
-        <a class="navbar-brand" href="{{ route('blog.home') }}">Блог</a>
+        <a class="navbar-brand" href="{{ route('blog.index') }}">Блог</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-blog" aria-controls="navbar-blog"
                 aria-expanded="false" aria-label="Toggle navigation">

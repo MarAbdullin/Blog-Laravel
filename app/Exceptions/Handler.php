@@ -38,4 +38,16 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    protected function invalid($request, $exception) 
+    {   /* что бы flash переменная session не изчезала так как может быть два запроса
+         *в случае неправельной валидации данных при редактирование из превью (первый запрос)
+         *отправка формы (второй запрос)
+        */
+        $redirect = parent::invalid($request, $exception);
+        if (session('preview')) {
+            return $redirect->with('preview', 'yes');
+        }
+        return $redirect;
+    }
 }
