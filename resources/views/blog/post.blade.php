@@ -29,5 +29,7 @@
             </div>
         @endif
     </div>
-    @include('layout.part.comments', ['comments' => $comments])
+    @isset($comments)
+        @include('admin.post.comments', ['comments' => $comments])
+    @endisset
 @endsection

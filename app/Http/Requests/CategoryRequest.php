@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PostRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,58 +22,44 @@ class PostRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {   
-        $unique = 'unique:posts,slug';
-          //проверка соответствует ли входящий запрос именованному маршруту. 
-          if($this->routeIs('admin.post.update')) { 
-            // получаем модель Post через маршрут admin/post/{post}
-            $model = $this->route('post');
-
-            $unique = 'unique:posts,slug,'.$model->id.',id';  //unique:posts,slug,2,id (не проверять уникальность в таблице posts поле slug с id 2)
+    {
+        $unique = 'unique:categories,slug';
+        //проверка соответствует ли входящий запрос именованному маршруту.
+        if ($this->routeIs('admin.category.update')) {
+            // получаем модель Category через маршрут admin/category/{category}
+            $model = $this->route('category');
+            $unique = 'unique:categories,slug,'.$model->id.',id'; //unique:categories,slug,2,id (не проверять уникальность в таблице categories поле slug с id 2 )
         }
         return [
             'name' => [
                 'required',
-                'string',
                 'min:3',
                 'max:100',
             ],
             'slug' => [
                 'required',
-                'string',
                 'max:100',
                 $unique,
                 'regex:~^[-_a-z0-9]+$~i',
             ],
-            'category_id' => [
-                'required',
-                'numeric',
-                'min:1'
-            ],
-            'excerpt' => [
-                'required',
-                'min:100',
-                'max:500',
-            ],
             'content' => [
-                'required',
-                'min:500',
+                'max:500',
             ],
             'image' => [
                 'mimes:jpeg,jpg,png',
-                'max:500'
+                'max:5000'
             ],
         ];
     }
 
-    public function message()
-    {
-        return  [
+  
+    //Возвращает массив сообщений об ошибках для заданных правил
+     public function messages() {
+        return [
             'required' => 'Поле «:attribute» обязательно для заполнения',
             'unique' => 'Такое значение поля «:attribute» уже используется',
             'min' => [
                 'string' => 'Поле «:attribute» должно быть не меньше :min символов',
-                'numeric' => 'Нужно выбрать категорию нового поста блога',
                 'file' => 'Файл «:attribute» должен быть не меньше :min Кбайт'
             ],
             'max' => [
@@ -84,14 +70,13 @@ class PostRequest extends FormRequest
         ];
     }
 
-    public function attributes() 
-    {
+   
+    //Возвращает массив дружественных пользователю названий полей
+    public function attributes() {
         return [
             'name' => 'Наименование',
             'slug' => 'ЧПУ (англ.)',
-            'category_id' => 'Категория',
-            'excerpt' => 'Анонс поста',
-            'content' => 'Текст поста',
+            'content' => 'Краткое описание',
             'image' => 'Изображение',
         ];
     }

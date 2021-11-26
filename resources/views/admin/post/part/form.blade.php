@@ -35,7 +35,7 @@
         </label>
     </div>
 @endisset
-@include('admin.post.part.all-tags')
+@include('admin.part.all-tags')
 <div class="form-group">
     <button type="submit" class="btn btn-primary">Сохранить</button>
 </div>

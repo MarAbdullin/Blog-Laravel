@@ -65,10 +65,28 @@ class User extends Authenticatable
     /*
        Связь модели User с моделью Comment, позволяет получить все
        комментарии пользователя
-     */
+    */
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /*
+       Связь модели User с моделью Post, позволяет получить все
+       посты опубликованные пользователем
+    */
+    public function publishedPosts()
+    {
+        return $this->hasMany(Post::class, 'published_by');
+    }
+
+    /*
+       Связь модели User с моделью Comment, позволяет получить все
+       комментарии опубликованные пользователем
+    */
+    public function publishedComments()
+    {
+        return $this->hasMany(Comment::class, 'published_by');
     }
     
    

@@ -8,6 +8,11 @@ use App\Http\Controllers\Blog\Auth\ForgotPasswordController;
 use App\Http\Controllers\Blog\Auth\ResetPasswordController;
 use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\Blog\Admin\PostController;
+use App\Http\Controllers\Blog\Admin\CategoryController;
+use App\Http\Controllers\Blog\Admin\TagController;
+use App\Http\Controllers\Blog\Admin\UserController;
+use App\Http\Controllers\Blog\Admin\CommentController;
+use App\Http\Controllers\Blog\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,7 +62,7 @@ Route::group([ 'as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'midd
 Route::group([ "as" => 'blog.', 'prefix' =>'/', 'middleware' => ['auth'] ], function(){
     
     // главная страница
-    Route::get('', [BlogController::class, 'index'])->name('home');
+    Route::get('', [BlogController::class, 'index'])->name('index');
 
     //страница с постами категории
     Route::get('category/{category:slug}', [BlogController::class, 'category'])->name('category');
@@ -70,6 +75,9 @@ Route::group([ "as" => 'blog.', 'prefix' =>'/', 'middleware' => ['auth'] ], func
 
     //страница просмотра поста
     Route::get('post/{post:slug}', [BlogController::class, 'post'])->name('post');
+
+    //добавление комментария к посту
+    Route::post('post/{post}/comment', [BlogController::class, 'comment'])->name('comment');
 });
 
 //Панель управления: CRUD-операции над постами, категориями, тегами 
@@ -78,6 +86,8 @@ Route::group( [
     'prefix' => 'admin',  
     'middleware' => ['auth'],
 ], function(){
+    //Главная страница панели управления
+    Route::get('index', [AdminController::class, 'index'])->name('index');
 
     //CRUD-операции над постами блога
     Route::resource('post', PostController::class, ['except' => ['create', 'store']]);
@@ -91,6 +101,24 @@ Route::group( [
     // доп.маршрут, чтобы запретить публикацию поста
     Route::put('post/disable/{post}', [PostController::class, 'disable'])->name('post.disable');
   
+    //CRUD-операции над категориями блога
+    Route::resource('category', CategoryController::class, ['except' => ['show']]);
+
+    //CRUD-операции над тегами блога
+    Route::resource('tag', TagController::class, ['except' => ['show']]);
+
+    //Просмотр и редактирование пользователей
+    Route::resource('user', UserController::class, ['except' =>['creste', 'store', 'show', 'destroy']]);
+
+    //CRUD-операции над комментариями
+    Route::resource('comment', CommentController::class, ['except' => ['creste', 'store']]);
+    
+    //доп.маршрут, чтобы разрешить публикацию комментария
+    Route::put('comment/enable/{comment}', [CommentController::class, 'enable'])->name('comment.enable');
+
+    // доп.маршрут, чтобы запретить публикацию комментария
+    Route::put('comment/disable/{comment}', [CommentController::class, 'disable'])->name('comment.disable');
+
 
 });
 
