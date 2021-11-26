@@ -10,6 +10,7 @@ use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\Blog\Admin\PostController;
 use App\Http\Controllers\Blog\Admin\CategoryController;
 use App\Http\Controllers\Blog\Admin\TagController;
+use App\Http\Controllers\Blog\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,7 +98,10 @@ Route::group( [
     Route::resource('category', CategoryController::class, ['except' => ['show']]);
 
     //CRUD-операции над тегами блога
-    Route::resource('tag', TagController::class, ['except' => 'show']);
+    Route::resource('tag', TagController::class, ['except' => ['show']]);
+
+    //Просмотр и редактирование пользователей
+    Route::resource('user', UserController::class, ['except' =>['creste', 'store', 'show', 'destroy']]);
 
 });
 
