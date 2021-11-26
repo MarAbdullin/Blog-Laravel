@@ -29,10 +29,10 @@
                 <tr>
                     <td>{{ $post->created_at }}</td>
                     <td>{{ $post->name }}</td>
-                    <td>{{ $post->user->name }}</td>
+                    <td>{{ $post->user->name }} {{ $post->user->surname }}</td>
                     <td>
                         @if ($post->editor)
-                            {{ $post->editor->name }}
+                            {{ $post->editor->name }} {{ $post->editor->surname }}
                         @endif
                     </td>
                     <td>

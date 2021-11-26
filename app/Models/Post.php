@@ -49,6 +49,10 @@ class Post extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function editor() {
+        return $this->belongsTo(User::class, 'published_by');
+    }
+
     /*
       Связь модели Post с моделью Comment, позволяет получить
       комментарии поста
