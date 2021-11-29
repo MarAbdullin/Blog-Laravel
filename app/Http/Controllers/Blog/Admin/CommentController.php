@@ -20,10 +20,6 @@ class CommentController extends Controller
     //Показывает список всех комментариев
     public function index()
     {
-        // $comment = Comment::where('id', 1)->first();
-        // $post = $comment->post;
-        // $comments = $post->comments;
-        // dd($comments);
         $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.comment.index', compact('comments'));
         
