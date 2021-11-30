@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Role;
-use App\Permission;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\RoleRequest;
 
@@ -72,7 +72,7 @@ class RoleController extends Controller
 
     }
 
-    //Обновляет роль в базе данных
+    //Удаляет роль из базы данных
     public function destroy(Role $role)
     {
         if($role->id === 1){

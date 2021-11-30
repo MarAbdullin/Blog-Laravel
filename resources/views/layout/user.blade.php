@@ -34,6 +34,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.comment.index') }}">Ваши комментарии</a>
                 </li>
+                @role('root')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Панель Администратора</a>
+                    </li>
+                @endrole
             </ul>
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">
