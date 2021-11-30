@@ -1,9 +1,9 @@
-extends('layout.user', ['title' => 'Редактирование комментария'])
+@extends('layout.user', ['title' => 'Редактирование комментария'])
 
 @section('content')
     <h1>Редактирование комментария</h1>
     <form method="post"
-          action="{{ route('admin.comment.update', ['comment' => $comment->id]) }}">
+          action="{{ route('user.comment.update', ['comment' => $comment->id]) }}">
         @csrf
         @method('PUT')
         <div class="form-group">

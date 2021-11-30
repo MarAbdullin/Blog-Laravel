@@ -80,7 +80,7 @@ class CommentController extends Controller
 
         $comment->update($request->all());
 
-        return $this->redirectAfterUpdate($comment);
+        return $this->redirectAfterUpdateUser($comment);
     }
 
     //Удаляет комментарий из базы данных
@@ -103,7 +103,7 @@ class CommentController extends Controller
     }
 
     //Выполняет редирект после обновления
-    private function redirectAfterUpdate(Comment $comment)
+    private function redirectAfterUpdateUser(Comment $comment)
     {
         // кнопка редактирования может быть нажата в режиме пред.просмотра
         // или в личном кабинете пользователя, поэтому и редирект разный

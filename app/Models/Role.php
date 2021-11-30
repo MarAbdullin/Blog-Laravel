@@ -10,6 +10,11 @@ use App\Models\User;
 class Role extends Model
 {
     use HasFactory;
+    
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
 
     // отношение многие ко многим ролей и прав
     public function permissions()

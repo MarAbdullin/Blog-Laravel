@@ -11,6 +11,7 @@ use App\Http\Controllers\Blog\Admin\PostController;
 use App\Http\Controllers\Blog\Admin\CategoryController;
 use App\Http\Controllers\Blog\Admin\TagController;
 use App\Http\Controllers\Blog\Admin\UserController;
+use App\Http\Controllers\Blog\Admin\RoleController;
 use App\Http\Controllers\Blog\Admin\CommentController;
 use App\Http\Controllers\Blog\Admin\AdminController;
 use App\Http\Controllers\Blog\User\PostController as UserPost;
@@ -120,6 +121,9 @@ Route::group( [
 
     //Просмотр и редактирование пользователей
     Route::resource('user', UserController::class, ['except' =>['creste', 'store', 'show', 'destroy']]);
+
+    //CRUD-операции над ролями
+    Route::resource('role', RoleController::class, ['except' => ['show']]);
 
     //CRUD-операции над комментариями
     Route::resource('comment', CommentController::class, ['except' => ['creste', 'store']]);

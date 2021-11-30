@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -42,7 +45,9 @@ class UserController extends Controller
     //Показывает форму для редактирования пользователя
     public function edit(User $user)
     {
-        return view('admin.user.edit', compact('user'));
+        $allroles = Role::all();
+        $allperms = Permission::all();
+        return view('admin.user.edit', compact('user', 'allroles', 'allperms'));
     }
 
     
@@ -50,6 +55,13 @@ class UserController extends Controller
     {
         if($request->change_password) $user->update($request->all());
         else $user->update($request->except('password'));
+
+        if (Auth::user()->hasPermAnyWay('assign-permission')) {
+            $user->roles()->sync($request->roles);
+        }
+        if (Auth::user()->hasPermAnyWay('assign-permission')) {
+            $user->permissions()->sync($request->perms);
+        }
 
         return redirect()->route('admin.user.index')->with(['success' => 'Пользователь успешно обновлен']);
     }
