@@ -62,6 +62,13 @@
                     </a>
                 </li>
             @endperm
+            @role('root')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('admin.role.index') }}">
+                        Роли
+                    </a>
+                </li>
+            @endrole
                 <li class="nav-item">
                     <a class="nav-link" href="#">Страницы</a>
                 </li>
