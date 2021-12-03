@@ -14,7 +14,8 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
-        <!-- Логотип и кнопка «Гамбургер» -->
+        @isset($admin) <i class="far fa-user text-danger mr-2"></i> @endisset
+        @isset($user) <i class="far fa-user text-success mr-2"></i> @endisset
         <a class="navbar-brand" href="{{ route('user.index') }}">Личный кабинет</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-blog" aria-controls="navbar-blog"
@@ -34,6 +35,11 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.comment.index') }}">Ваши комментарии</a>
                 </li>
+                @role('root')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.index') }}">Панель Администратора</a>
+                    </li>
+                @endrole
             </ul>
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">
