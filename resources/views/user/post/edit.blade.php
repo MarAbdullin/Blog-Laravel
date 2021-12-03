@@ -7,4 +7,4 @@
         @method('PUT')
         @include('admin.post.part.form')
     </form>
-
+@endsection

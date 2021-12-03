@@ -14,9 +14,7 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
-
         <!-- Логотип и кнопка «Гамбургер» -->
-
         <a class="navbar-brand" href="{{ route('user.index') }}">Личный кабинет</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-blog" aria-controls="navbar-blog"
@@ -36,17 +34,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.comment.index') }}">Ваши комментарии</a>
                 </li>
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-                @role('root')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.index') }}">Панель Администратора</a>
-                    </li>
-                @endrole
-=======
->>>>>>> b3
->>>>>>> b2
             </ul>
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">

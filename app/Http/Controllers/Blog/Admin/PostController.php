@@ -65,7 +65,7 @@ class PostController extends Controller
     //Разрешить публикацию поста блога
     public function enable(Post $post)
     {
-        
+        //dd($request, $post);
         $post->enable();
 
         return back()->with('success', 'Пост блога опублекован');

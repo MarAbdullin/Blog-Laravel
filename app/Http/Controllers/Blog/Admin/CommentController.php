@@ -20,6 +20,10 @@ class CommentController extends Controller
     //Показывает список всех комментариев
     public function index()
     {
+        // $comment = Comment::where('id', 1)->first();
+        // $post = $comment->post;
+        // $comments = $post->comments;
+        // dd($comments);
         $comments = Comment::orderBy('created_at', 'desc')->paginate(10);
         return view('admin.comment.index', compact('comments'));
         
@@ -63,7 +67,7 @@ class CommentController extends Controller
     public function update(CommentRequest $request, Comment $comment)
     {
         $comment->update($request->all());
-        return $this->redirectAfterUpdateAdmin($comment);
+        return $this->redirectAfterUpdate($comment);
     }
 
     public function enable(Comment $comment)
@@ -104,7 +108,7 @@ class CommentController extends Controller
     }
 
     //Выполянет редирект после обновления
-    public function redirectAfterUpdateAdmin(Comment $comment)
+    public function redirectAfterUpdate(Comment $comment)
     {
         $redirect = redirect();
         // кнопка редактирования может быть нажата в режиме пред.просмотра

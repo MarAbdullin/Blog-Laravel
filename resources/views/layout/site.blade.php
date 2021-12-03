@@ -13,7 +13,6 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-
         <!-- Логотип и кнопка «Гамбургер» -->
         @isset($admin) <i class="far fa-user text-danger mr-2"></i> @endisset
         @isset($user) <i class="far fa-user text-success mr-2"></i> @endisset
