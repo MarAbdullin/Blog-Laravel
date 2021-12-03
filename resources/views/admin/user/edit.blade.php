@@ -28,6 +28,12 @@
             <input type="text" class="form-control" name="password_confirmation" maxlength="255"
                    placeholder="Пароль еще раз" value="">
         </div>
+        @perm('assign-role')
+            @include('admin.user.all-roles')
+        @endperm
+        @perm('assign-permission')
+            @include('admin.user.all-perms')
+        @endperm
         <div class="form-group">
             <button type="submit" class="btn btn-success">Сохранить</button>
         </div>
