@@ -1,6 +1,6 @@
-<<?php
+<?php
 
-
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -42,22 +42,6 @@ class RoleRequest extends FormRequest
                 $unique,
                 'regex:~^[-_a-z0-9]+$~i',
             ]
-        ];
-    }
-
-    public function message()
-    {
-        return  [
-            'required' => 'Поле «:attribute» обязательно для заполнения',
-            'max' => 'Поле «:attribute» должно быть не больше :max символов',
-        ];
-    }
-
-    public function attributes() 
-    {
-        return [
-            'name' => 'Наименование',
-            'slug' => 'Идентификатор'
         ];
     }
 }
