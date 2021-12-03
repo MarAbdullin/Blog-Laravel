@@ -15,6 +15,8 @@
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger mb-4">
         <!-- Логотип  -->
+        @isset($admin) <i class="far fa-user text-danger mr-2"></i> @endisset
+        @isset($user) <i class="far fa-user text-success mr-2"></i> @endisset
         <a class="navbar-brand" href="{{ route('admin.index') }}">Панель управления</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-blog" aria-controls="navbar-blog"

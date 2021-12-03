@@ -13,6 +13,10 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<<<<<<< HEAD
+=======
+        <!-- Логотип и кнопка «Гамбургер» -->
+>>>>>>> b3
         @isset($admin) <i class="far fa-user text-danger mr-2"></i> @endisset
         @isset($user) <i class="far fa-user text-success mr-2"></i> @endisset
         <a class="navbar-brand" href="{{ route('blog.index') }}">Блог</a>

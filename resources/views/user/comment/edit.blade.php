@@ -3,7 +3,11 @@
 @section('content')
     <h1>Редактирование комментария</h1>
     <form method="post"
+<<<<<<< HEAD
           action="{{ route('user.comment.update', ['comment' => $comment->id]) }}">
+=======
+          action="{{ route('admin.comment.update', ['comment' => $comment->id]) }}">
+>>>>>>> b3
         @csrf
         @method('PUT')
         <div class="form-group">
