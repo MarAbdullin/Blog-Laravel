@@ -94,6 +94,11 @@ class Comment extends Model
         return ! is_null($this->published_by);
     }
 
+    //Возвращает true, если пользователь является автором
+    public function isAuthor() {
+        return $this->user->id === auth()->user()->id;
+    }
+
 
     
 
