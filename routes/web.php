@@ -13,6 +13,8 @@ use App\Http\Controllers\Blog\Admin\TagController;
 use App\Http\Controllers\Blog\Admin\UserController;
 use App\Http\Controllers\Blog\Admin\CommentController;
 use App\Http\Controllers\Blog\Admin\AdminController;
+use App\Http\Controllers\Blog\User\PostController as UserPost;
+use App\Http\Controllers\Blog\User\CommentController as UserComment;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,9 +55,17 @@ Route::group(['as' => 'auth.', 'prefix' => 'auth'], function () {
 });
 
 // страница личного кабинета  
-Route::group([ 'as' => 'user.', 'prefix' => 'user', 'namespace' => 'User', 'middleware' => ['auth'] ], function () {
+Route::group([ 'as' => 'user.', 'prefix' => 'user',  'middleware' => ['auth'] ], function () {
     
     Route::get('index', [IndexController::class ,'__invoke'])->name('index');
+
+    //CRUD-операции над постами пользователя
+    Route::resource('post', UserPost::class);
+
+    //CRUD-операции над комментариями пользователя
+    Route::resource('comment', UserComment::class, ['except' => [
+        'create', 'store'
+    ]]);
 });
 
 // группа маршрутов вывода постов

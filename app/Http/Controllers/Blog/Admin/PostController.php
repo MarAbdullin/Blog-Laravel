@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\ImageSaver;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
@@ -10,8 +11,11 @@ use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
+    private $imageSaver;
+
     //права на доступ к действиям контроллера
-    public function __construct() {
+    public function __construct(ImageSaver $imageSaver) {
+        $this->imageSaver = $imageSaver;
         $this->middleware('perm:manage-posts')->only(['index', 'category', 'show']);
         $this->middleware('perm:edit-post')->only(['edit', 'update']);
         $this->middleware('perm:publish-post')->only(['enable', 'disable']);
@@ -88,8 +92,10 @@ class PostController extends Controller
 
     //Обновляет пост блога в базе данных
     public function update(PostRequest $request, Post $post)
-    {
-        $post->update($request->all());
+    {   
+        $data = $request->except('image');
+        $data['image'] = $this->imageSaver->upload($category);
+        $post->update($data);
         $post->tags()->sync($request->tags);
 
         // кнопка редактирования может быть нажата в режиме пред.просмотра
@@ -107,7 +113,9 @@ class PostController extends Controller
 
     //Удаляет пост блога из базы данных
     public function destroy(Post $post)
-    {
+    {   
+        // удаляем файл изображения
+        $this->imageSaver->remove($category);
         $post->delete();
 
         $route = 'admin.post.index';

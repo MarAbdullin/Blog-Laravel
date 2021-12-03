@@ -29,7 +29,7 @@ class ComposerServiceProvider extends ServiceProvider
     {
         View::composer([
             'layout.part.categories', // меню в левой колонке в публичной части
-            'admin.part.categories', // выбор категории поста при редактировании
+            'admin.post.part.categories', // выбор категории поста при редактировании
             'admin.part.parents', // выбор родителя категории при редактировании
             'admin.part.all-ctgs', // все категории в административной части
         ], function($view) {

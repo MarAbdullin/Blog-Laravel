@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Blog\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Helpers\ImageSaver;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
-{
+{   
+    private $imageSaver;
+
     //права на доступ к действиям контроллера
-    public function __construct() {
+    public function __construct(ImageSaver $imageSaver) {
+        $this->imageSaver = $imageSaver;
         $this->middleware('perm:manage-categories')->only('index');
         $this->middleware('perm:create-category')->only(['create', 'store']);
         $this->middleware('perm:edit-category')->only(['edit', 'update']);
@@ -33,7 +37,10 @@ class CategoryController extends Controller
     // сохранение новой категории в БД
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        $category = new Category();
+        $category->fill($request->except('image'));
+        $category->image = $this->imageSaver->upload($category);
+        $category->save();
 
         return redirect()->route('admin.category.index')->with(['success' => 'Новая категория успешно создана']);
     }
@@ -52,9 +59,12 @@ class CategoryController extends Controller
 
     
     public function update(CategoryRequest $request, Category $category)
-    {
-        $category->update($request->all());
+    {   
+        $data = $request->except('image');
+        $data['image'] = $this->imageSaver->upload($category);
 
+        $category->update($data);
+        
         return redirect()->route('admin.category.index')->with(['success' => 'Категория была успешно исправлена']);
     }
 
@@ -73,6 +83,9 @@ class CategoryController extends Controller
             return back()->withErrors($errors);
         }
 
+        // удаляем файл изображения
+        $this->imageSaver->remove($category);
+        
         $category->delete();
         return redirect()->route('admin.category.index')->with(['success' => 'Категория успешно удалена']);
     }

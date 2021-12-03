@@ -94,6 +94,39 @@ class Comment extends Model
         return ! is_null($this->published_by);
     }
 
+    //Возвращает true, если пользователь является автором
+    public function isAuthor() {
+        return $this->user->id === auth()->user()->id;
+    }
+
+      /**
+     * Номер страницы пагинации, на которой расположен комментарий;
+     * все опубликованные + не опубликованные этого пользователя
+     */
+    public function userPageNumber() {
+        // все опубликованные комментарии других пользователей
+        $others = $this->post->comments()->whereNotNull('published_by');
+        // и не опубликованные комментарии этого пользователя
+        $comments = $this->post->comments()
+            ->whereUserId(auth()->user()->id)
+            ->whereNull('published_by')
+            ->union($others)
+            ->orderBy('created_at')
+            ->get();
+        if ($comments->count() == 0) {
+            return 1;
+        }
+        if ($comments->count() <= $this->getPerPage()) {
+            return 1;
+        }
+        foreach ($comments as $index => $comment) {
+            if ($this->id == $comment->id) {
+                break;
+            }
+        }
+        return (int) ceil(($index+1) / $this->getPerPage());
+    }
+
 
     
 

@@ -25,7 +25,7 @@ class PostRequest extends FormRequest
     {   
         $unique = 'unique:posts,slug';
           //проверка соответствует ли входящий запрос именованному маршруту. 
-          if($this->routeIs('admin.post.update')) { 
+          if($this->routeIs(['admin.post.update','user.post.update'])) { 
             // получаем модель Post через маршрут admin/post/{post}
             $model = $this->route('post');
 

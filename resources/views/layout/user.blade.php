@@ -5,18 +5,17 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ $title }}</title>
+    <title>{{ $title ?? 'Личный кабинет' }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
     <script src="{{ asset('js/app.js') }}"></script>
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
         <!-- Логотип и кнопка «Гамбургер» -->
-        @isset($admin) <i class="far fa-user text-danger mr-2"></i> @endisset
-        @isset($user) <i class="far fa-user text-success mr-2"></i> @endisset
-        <a class="navbar-brand" href="{{ route('blog.index') }}">Блог</a>
+        <a class="navbar-brand" href="{{ route('user.index') }}">Личный кабинет</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-blog" aria-controls="navbar-blog"
                 aria-expanded="false" aria-label="Toggle navigation">
@@ -27,22 +26,15 @@
             <!-- Этот блок расположен слева -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Блог</a>
+                    <a class="nav-link" href="{{ route('blog.index') }}">Перейти к блогу</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Теги</a>
+                    <a class="nav-link" href="{{ route('user.post.index') }}">Ваши публикации</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Контакты</a>
+                    <a class="nav-link" href="{{ route('user.comment.index') }}">Ваши комментарии</a>
                 </li>
             </ul>
-            <!-- Этот блок расположен посередине -->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search"
-                       placeholder="Поиск по блогу" aria-label="Search">
-                <button class="btn btn-outline-info my-2 my-sm-0"
-                        type="submit">Искать</button>
-            </form>
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">
                 @guest
@@ -65,14 +57,8 @@
     </nav>
 
     <div class="row">
-        <div class="col-md-3">
-            <h4>Категории блога</h4>
-            @include('layout.part.categories', ['parent' => 0])
-            <h4>Популярные теги</h4>
-            @include('layout.part.popular-tags')
-        </div>
-        <div class="col-md-9">
-            @if ($message = Session::get('success'))
+        <div class="col">
+            @if ($message = session('success'))
                 <div class="alert alert-success alert-dismissible mt-0" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
                         <span aria-hidden="true">&times;</span>
