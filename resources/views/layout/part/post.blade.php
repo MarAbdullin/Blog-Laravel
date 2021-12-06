@@ -2,8 +2,12 @@
     <div class="card-header">
         <h2>{{ $post->name }}</h2>
     </div>
+    @php
+        if($post->image) $src = asset('storage/post/image/'.$post->image);
+        else $src =' https://via.placeholder.com/1000x300';
+    @endphp
     <div class="card-body">
-        <img src="https://via.placeholder.com/1000x300" alt="" class="img-fluid">
+        <img src="{{$src}}" alt="" class="img-fluid">
         <p class="mt-3 mb-0">{{ $post->excerpt }}</p>
     </div>
     <div class="card-footer">

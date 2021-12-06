@@ -5,10 +5,12 @@
         <div class="card-header">
             <h1>{{ $post->name }}</h1>
         </div>
-        {{ $post->image }}
-        
+        @php
+        if($post->image) $src = asset('storage/post/image/'.$post->image);
+        else $src =' https://via.placeholder.com/1000x300';
+        @endphp
         <div class="card-body">
-            <img src="{{ asset('storage/post/image/53d7WpQCGWcdCAuA9Ij7mdapaZc8o0qxk7HdankE.jpg') }}" alt="" class="img-fluid">
+            <img src="{{$src}}" alt="" class="img-fluid">
             <div class="mt-4">{!! $post->content !!}</div>
         </div>
         <div class="card-footer">
