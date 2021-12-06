@@ -61,7 +61,7 @@ class PostRequest extends FormRequest
             ],
             'image' => [
                 'mimes:jpeg,jpg,png',
-                'max:500'
+                'max:700'
             ],
         ];
     }

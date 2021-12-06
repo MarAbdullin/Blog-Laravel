@@ -43,7 +43,7 @@ class ImageSaver
             // содержать путь относительно хранилища вместе с именем
             $src = $source->store($dir . '/source', 'public');
 
-            $name = basename($source); // имя загруженного файла
+            $name = basename($src); // имя загруженного файла
             // создаем уменьшенное изображение 1000x300px, качество 100%
             $dst = str_replace('source', 'image', $src);
             $this->resize($src, $dst, 1000, 300);
@@ -66,7 +66,7 @@ class ImageSaver
         $path = Storage::disk('public')->path($src);
 
         $image = Image::make($path)
-            ->heighten($height)
+            ->resize($width, $height)
             ->resizeCanvas($width, $height, 'center', false, 'eeeeee')
             ->encode(pathinfo($path, PATHINFO_EXTENSION), 100);
         Storage::disk('public')->put($dst, $image);

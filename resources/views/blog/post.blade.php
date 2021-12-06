@@ -5,14 +5,16 @@
         <div class="card-header">
             <h1>{{ $post->name }}</h1>
         </div>
+        {{ $post->image }}
+        
         <div class="card-body">
-            <img src="http://via.placeholder.com/1000x300" alt="" class="img-fluid">
+            <img src="{{ asset('storage/post/image/53d7WpQCGWcdCAuA9Ij7mdapaZc8o0qxk7HdankE.jpg') }}" alt="" class="img-fluid">
             <div class="mt-4">{!! $post->content !!}</div>
         </div>
         <div class="card-footer">
                 Автор:
                 <a href="{{ route('blog.author', ['user' => $post->user->id]) }}">
-                    {{ $post->user->name }}
+                    {{ $post->user->name }} {{ $post->user->surname }}
                 </a>
                 <br>
                 Дата: {{ $post->created_at }}
