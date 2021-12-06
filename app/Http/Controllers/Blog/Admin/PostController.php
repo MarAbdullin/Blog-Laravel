@@ -93,8 +93,8 @@ class PostController extends Controller
     //Обновляет пост блога в базе данных
     public function update(PostRequest $request, Post $post)
     {   
-        $data = $request->except('image');
-        $data['image'] = $this->imageSaver->upload($category);
+        $data = $request->except('image', 'tags');
+        $data['image'] = $this->imageSaver->upload($post);
         $post->update($data);
         $post->tags()->sync($request->tags);
 
@@ -115,7 +115,7 @@ class PostController extends Controller
     public function destroy(Post $post)
     {   
         // удаляем файл изображения
-        $this->imageSaver->remove($category);
+        $this->imageSaver->remove($post);
         $post->delete();
 
         $route = 'admin.post.index';

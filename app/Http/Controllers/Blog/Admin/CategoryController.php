@@ -61,7 +61,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, Category $category)
     {   
         $data = $request->except('image');
-        $data['image'] = $this->imageSaver->upload($category);
+        $data['image'] = $this->imageSaver->upload($category); //сохраняем в поле image название файла изображения
 
         $category->update($data);
         

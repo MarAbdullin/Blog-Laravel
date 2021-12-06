@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Blog\User;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Helpers\ImageSaver;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
-{
-    public function __construct() {
+{   
+    private $imageSaver;
+
+    public function __construct(ImageSaver $imageSaver) {
+        $this->imageSaver = $imageSaver;
         $this->middleware('perm:create-post')->only(['create', 'store']);
     }
 
@@ -30,8 +34,12 @@ class PostController extends Controller
 
     //Сохраняет новый пост в базу данных
     public function store(PostRequest $request) {
+        // уникальный идентификатор автора поста
         $request->merge(['user_id' => Auth::user()->id]);
-        $post = Post::create($request->all());
+        $post = new Post();
+        $post->fill($request->except('image', 'tags'));
+        $post->image = $this->imageSaver->upload($post); //сохраняем в поле image название файла изображения
+        $post->save();
         $post->tags()->attach($request->tags);
         return redirect()
             ->route('user.post.show', ['post' => $post->id])
@@ -87,7 +95,9 @@ class PostController extends Controller
         if ($post->isVisible()) {
             abort(404);
         }
-        $post->update($request->all());
+        $data = $request->except(['image', 'tags']);
+        $data['image'] = $this->imageSaver->upload($post); //сохраняем в поле image название файла изображения
+        $post->update($data);
         $post->tags()->sync($request->tags);
         // кнопка редактирования может быть нажата в режиме пред.просмотра
         // или в личном кабинете пользователя, поэтому редирект разный
@@ -113,6 +123,8 @@ class PostController extends Controller
         if ($post->isVisible()) {
             abort(404);
         }
+        // удаляем файл изображения
+        $this->imageSaver->remove($post);
         $post->delete();
         return redirect()
             ->route('user.post.index')
