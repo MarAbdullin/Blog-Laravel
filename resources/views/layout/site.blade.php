@@ -13,9 +13,6 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-        <!-- Логотип и кнопка «Гамбургер» -->
-        @isset($admin) <i class="far fa-user text-danger mr-2"></i> @endisset
-        @isset($user) <i class="far fa-user text-success mr-2"></i> @endisset
         <a class="navbar-brand" href="{{ route('blog.index') }}">Блог</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-blog" aria-controls="navbar-blog"
@@ -36,12 +33,11 @@
                     <a class="nav-link" href="#">Контакты</a>
                 </li>
             </ul>
-            <!-- Этот блок расположен посередине -->
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search"
-                       placeholder="Поиск по блогу" aria-label="Search">
-                <button class="btn btn-outline-info my-2 my-sm-0"
-                        type="submit">Искать</button>
+            <!-- Форма поиска по сайту -->
+            <form action="{{ route('blog.search') }}" class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" name="query"
+                        placeholder="Поиск по блогу" aria-label="Search">
+                <button class="btn btn-outline-info my-2 my-sm-0"type="submit">Искать</button>
             </form>
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">

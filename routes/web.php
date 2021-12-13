@@ -28,6 +28,10 @@ use App\Http\Controllers\Blog\User\CommentController as UserComment;
 |
 */
 
+// DB::listen(function($query) {
+//     var_dump($query->sql, $query->bindings);
+// });
+
 //  Группа  маршрутов аутентификации, регистрации, сброса пороля.
 
 Route::group(['as' => 'auth.', 'prefix' => 'auth'], function () {
@@ -90,6 +94,9 @@ Route::group([ "as" => 'blog.', 'prefix' =>'/', 'middleware' => ['auth'] ], func
 
     //добавление комментария к посту
     Route::post('post/{post}/comment', [BlogController::class, 'comment'])->name('comment');
+
+    //поиск поста по сайту
+    Route::get('search', [BlogController::class, 'search'])->name('search');
 });
 
 //Панель управления: CRUD-операции над постами, категориями, тегами 

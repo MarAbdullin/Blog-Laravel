@@ -11,6 +11,7 @@ use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
 use App\Models\Comment;
+use Illuminate\Support\Facades\DB;
 
 class BlogController extends Controller
 {
@@ -20,6 +21,18 @@ class BlogController extends Controller
         $posts = Post::whereNotNull('published_by')->with(['user', 'tags'])->orderBy('created_at', 'desc')->paginate(5);
 
         return view('blog.index', compact('posts'));
+    }
+
+    //поиск поста по его названию, названию тега и имени автора
+    public function search(Request $request)
+    {    
+        $search = $request->input('query');
+
+        $posts = Post::search($search);
+        $posts = $posts->paginate()->withQueryString();
+      //dd($posts);
+       return view('blog.search', compact('posts', 'search'));
+
     }
 
     //страница поста с комментариями
@@ -81,8 +94,8 @@ class BlogController extends Controller
         ->route('blog.post', ['post' => $post->slug, 'page' => $page])
         ->withFragment('comment-list')
         ->with('success', $message);
-
-
     }
+
+
 
 }

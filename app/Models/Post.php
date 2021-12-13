@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\User;
@@ -23,6 +24,41 @@ class Post extends Model
         'content',
         'image',
     ];
+
+    //Поиск постов блога по заданным словам
+    static function search($search)
+    {
+
+        // обрезаем поисковый запрос
+        $search = iconv_substr($search, 0, 64);
+        // удаляем все, кроме букв и цифр
+        $search = preg_replace('#[^0-9a-zA-ZА-Яа-яёЁ]#u', ' ', $search);
+        // сжимаем двойные пробелы
+        $search = preg_replace('#\s+#u', ' ', $search);
+        $search = trim($search);
+        // if (empty($search)) {
+        //     return $builder->whereNull('id'); // возвращаем пустой результат
+        // }
+
+        $relevance = "IF (`posts`.`name` LIKE '%" . $search . "%', 4, 0)";
+        $relevance .= " + IF (`posts`.`content` LIKE '%" . $search . "%', 2, 0)";
+        $relevance .= " + IF (`users`.`name` LIKE '%" . $search . "%', 1, 0)";
+      
+      
+
+        $post = Post::distinct()->join('users', 'users.id', '=', 'posts.user_id')
+            ->select('posts.*', DB::raw($relevance . ' as relevance'))
+            ->where('posts.name', 'like', '%' . $search . '%')
+            ->orWhere('posts.content', 'like', '%' . $search . '%')
+            ->orWhere('users.name', 'like', '%' . $search . '%');
+       
+        $post->orderBy('relevance', 'desc');
+        
+        return $post;
+       
+
+
+    }
 
 
     /*
