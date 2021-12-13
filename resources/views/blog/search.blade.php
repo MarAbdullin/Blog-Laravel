@@ -5,7 +5,9 @@
     <p>Поисковый запрос: {{ $search ?? 'пусто' }}</p>
     @if ($posts->count())
         @foreach ($posts as $post)
-            @if($post->published_by != null)
+            @if($post->published_by == null)
+                <p>По вашему запросу ничего не найдено</p>
+            @else
                 @include('layout.part.post', ['post' => $post])
             @endif
         @endforeach

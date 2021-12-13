@@ -30,8 +30,8 @@ class BlogController extends Controller
 
         $posts = Post::search($search);
         $posts = $posts->paginate()->withQueryString();
-      //dd($posts);
-       return view('blog.search', compact('posts', 'search'));
+     
+        return view('blog.search', compact('posts', 'search'));
 
     }
 

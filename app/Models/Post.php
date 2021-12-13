@@ -28,7 +28,6 @@ class Post extends Model
     //Поиск постов блога по заданным словам
     static function search($search)
     {
-
         // обрезаем поисковый запрос
         $search = iconv_substr($search, 0, 64);
         // удаляем все, кроме букв и цифр
@@ -36,14 +35,13 @@ class Post extends Model
         // сжимаем двойные пробелы
         $search = preg_replace('#\s+#u', ' ', $search);
         $search = trim($search);
-        // if (empty($search)) {
-        //     return $builder->whereNull('id'); // возвращаем пустой результат
-        // }
+        if (empty($search)) {
+            return $post = Post::whereNull('id'); // возвращаем пустой результат
+        }
 
         $relevance = "IF (`posts`.`name` LIKE '%" . $search . "%', 4, 0)";
         $relevance .= " + IF (`posts`.`content` LIKE '%" . $search . "%', 2, 0)";
         $relevance .= " + IF (`users`.`name` LIKE '%" . $search . "%', 1, 0)";
-      
       
 
         $post = Post::distinct()->join('users', 'users.id', '=', 'posts.user_id')
