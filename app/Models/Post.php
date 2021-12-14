@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;  //трейт пакета для каскадного мягкого удаления
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\User;
@@ -28,9 +28,9 @@ class Post extends Model
         'image',
     ];
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at']; //поле для мягкого удаления
 
-    protected $softCascade = ['comments'];
+    protected $softCascade = ['comments'];//таблица где нужно сделать мягкое каскадное удаление
 
     //Поиск постов блога по заданным словам
     static function search($search)

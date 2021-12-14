@@ -1,9 +1,10 @@
 $(document).ready(function () {
     
+    //preview загружаемой картинки
     $('#img').on('click', function(){
         $('.image').append('<img id="img-preview" src=""/>');
         
-        
+        //отображение preview
         $(document).on('change', '#img', function(){
             let input = $(this)[0];
             if(input.files && input.files[0]){
@@ -23,12 +24,12 @@ $(document).ready(function () {
     });
     });
 
-    
-    
+    //закрытие preview
+    $('.image').on('click', function(){
+        $('#img').val('');
+        $('.image').empty();
+    });
 
-$('.image').on('click', function(){
-    $('#img').val('');
-    $('.image').empty();
+
 });
 
-});

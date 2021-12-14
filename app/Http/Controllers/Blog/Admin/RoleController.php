@@ -63,7 +63,11 @@ class RoleController extends Controller
             return redirect()->route('admin.role.index')->withErrors('Эту роль нельзя редактировать');
         }
 
-        $role->update($request->all());
+        if (in_array($role->id, [2, 3])) {
+            $role->update($request->except('slug'));
+        } else {
+            $role->update($request->all());
+        }
 
         $role->permissions()->sync($request->perms ?? []);
 
@@ -75,7 +79,7 @@ class RoleController extends Controller
     //Удаляет роль из базы данных
     public function destroy(Role $role)
     {
-        if($role->id === 1){
+        if (in_array($role->id, [1, 2, 3])){
             return redirect()->route('admin.role.index')->withErrors('Эту роль нельзя редактировать');
         }
 

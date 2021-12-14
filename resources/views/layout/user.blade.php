@@ -8,8 +8,10 @@
     <title>{{ $title ?? 'Личный кабинет' }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/jquery.js') }}"></script>
 </head>
 <body>
 <div class="container">
@@ -35,11 +37,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.comment.index') }}">Ваши комментарии</a>
                 </li>
-                @role('root')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin.index') }}">Панель Администратора</a>
-                    </li>
-                @endrole
             </ul>
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">

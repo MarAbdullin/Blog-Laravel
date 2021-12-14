@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Blog\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
 class IndexController extends Controller
@@ -16,6 +17,11 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('user.index');
+        $perms = [
+            'manage-posts', 'manage-comments', 'manage-tags',
+            'manage-users', 'manage-roles', 'manage-pages'
+        ];
+        $admin = Auth::user()->hasAnyPerms(...$perms);
+        return view('user.index', compact('admin'));
     }
 }

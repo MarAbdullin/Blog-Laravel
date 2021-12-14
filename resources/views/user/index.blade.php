@@ -16,4 +16,9 @@
         <a href="{{ route('user.comment.index') }}" class="btn btn-primary">
             Ваши комментарии
         </a>
+    @if ($admin)
+        <a href="{{ route('admin.index') }}" class="btn btn-danger">
+            Панель управления
+        </a>
+    @endif
 @endsection

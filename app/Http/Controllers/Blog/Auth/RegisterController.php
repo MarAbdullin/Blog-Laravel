@@ -27,6 +27,8 @@ class RegisterController extends Controller
                 'password' => $request->password,
             ]);
 
+            $user->assignRoles('user'); //добавить роль user новому пользователю
+
             Auth::login($user);
             
             return redirect()

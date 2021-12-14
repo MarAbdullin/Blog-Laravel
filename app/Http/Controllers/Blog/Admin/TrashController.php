@@ -11,8 +11,8 @@ class TrashController extends Controller
 {
     
     public function __construct() {
-        $this->middleware('role:root')->only(['index', 'restore', 'destroy']);
-        
+        $this->middleware('perm:manage-posts')->only('index');
+        $this->middleware('perm:delete-post')->only(['restore', 'destroy']);
     }
 
     //отображение удаленных постов
