@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Tag;
@@ -13,7 +14,7 @@ use App\Models\Comment;
 
 class Post extends Model
 {
-    use HasFactory;
+    use HasFactory; use SoftDeletes;
 
     protected $fillable = [
         'user_id',
