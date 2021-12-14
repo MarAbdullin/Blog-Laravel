@@ -7,14 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use \Askedio\SoftCascade\Traits\SoftCascadeTrait;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\User;
 use App\Models\Comment;
 
+
 class Post extends Model
 {
-    use HasFactory; use SoftDeletes;
+    use HasFactory;  use SoftDeletes, SoftCascadeTrait;
 
     protected $fillable = [
         'user_id',
@@ -25,6 +27,10 @@ class Post extends Model
         'content',
         'image',
     ];
+
+    protected $dates = ['deleted_at'];
+
+    protected $softCascade = ['comments'];
 
     //Поиск постов блога по заданным словам
     static function search($search)

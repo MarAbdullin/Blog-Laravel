@@ -14,6 +14,7 @@ use App\Http\Controllers\Blog\Admin\UserController;
 use App\Http\Controllers\Blog\Admin\RoleController;
 use App\Http\Controllers\Blog\Admin\CommentController;
 use App\Http\Controllers\Blog\Admin\AdminController;
+use App\Http\Controllers\Blog\Admin\TrashController;
 use App\Http\Controllers\Blog\User\PostController as UserPost;
 use App\Http\Controllers\Blog\User\CommentController as UserComment;
 
@@ -141,6 +142,15 @@ Route::group( [
     // доп.маршрут, чтобы запретить публикацию комментария
     Route::put('comment/disable/{comment}', [CommentController::class, 'disable'])->name('comment.disable');
 
+    //удаление восстановление постов
+    //просмотр удаленных постов
+    Route::get('trash/index', [TrashController::class, 'index'])->name('trash.index');
+
+    //восстановление поста
+    Route::get('trash/restore/{id}', [TrashController::class, 'restore'])->name('trash.restore');
+
+    //удаление поста
+    Route::delete('trash/destroy/{id}', [TrashController::class, 'destroy'])->name('trash.destroy');
 
 });
 

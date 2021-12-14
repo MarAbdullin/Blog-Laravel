@@ -114,8 +114,6 @@ class PostController extends Controller
     //Удаляет пост блога из базы данных
     public function destroy(Post $post)
     {   
-        // удаляем файл изображения
-        $this->imageSaver->remove($post);
         $post->delete();
 
         $route = 'admin.post.index';

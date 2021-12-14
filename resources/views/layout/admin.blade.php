@@ -72,12 +72,11 @@
                     </a>
                 </li>
             @endrole
+            @role('root')
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Страницы</a>
+                    <a class="nav-link" href="{{ route('admin.trash.index') }}">Корзина</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Корзина</a>
-                </li>
+            @endrole
             </ul>
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">
